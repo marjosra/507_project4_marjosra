@@ -111,7 +111,7 @@ class Ball(GameObject):
         Generate a random angle that isn't too close to straight up and down or straight side to side
         :return: an angle in degrees
         '''
-        angle = random.randint(15,75)+90*random.randint(0,3)
+        angle = random.randint(10,75)+90*random.randint(0,3)
         debug_print('Starting ball angle: ' + str(angle) + ' degrees')
         return angle
 
@@ -251,8 +251,8 @@ class Game(object):
         self.hit_count = 0
 
         self.balls = [Ball(img_file= ball_img,
-                         initial_x= self.width/2,
-                         initial_y = self.height/2,
+                         initial_x= 20,
+                         initial_y = 20,
                          game=self)
                       ]
         self.paddles = [
@@ -264,15 +264,18 @@ class Game(object):
                     initial_x= self.side_paddle_buffer + paddle_width/2,
                     initial_y = self.height/2,
                     game=self
-                    ),
-            Paddle(player = 2,
-                    up_key=pyglet.window.key.U,
-                    down_key=pyglet.window.key.J,
-                    name='Player 2',
-                    img_file=paddle_imgs[1],
-                    initial_x = self.width-self.side_paddle_buffer - paddle_width/2,
-                    initial_y = self.height/2,
-                    game=self)        ]
+            )
+        ]
+
+            # Paddle(player = 2,
+            #         up_key=pyglet.window.key.U,
+            #         down_key=pyglet.window.key.J,
+            #         name='Player 2',
+            #         img_file=paddle_imgs[1],
+            #         initial_x = self.width-self.side_paddle_buffer - paddle_width/2,
+            #         initial_y = self.height/2,
+            #         game=self)        ]
+
         self.walls = [
             BallDeflector(initial_x = 0, #bottom
                 initial_y = 0,
@@ -286,12 +289,14 @@ class Game(object):
                 initial_y = 0,
                 img_file = wall_imgs[0],
                 game = self),
-            EndLine(initial_x = self.width - wall_width, #right
+            BallDeflector(initial_x = self.width - wall_width, #right
                 initial_y = 0,
                 img_file = wall_imgs[0],
                 game = self),
         ]
-        self.bricks = []  # Not used in this initial version
+        self.bricks = [
+        
+        ]  # Not used in this initial version
         self.game_objects = self.walls + self.bricks + self.paddles + self.balls
 
     def update(self,pressed_keys):
