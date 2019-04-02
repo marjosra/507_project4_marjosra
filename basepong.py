@@ -1,4 +1,4 @@
-__author__ = 'Sam Carton and Paul Resnick'
+__author__ = 'Mark Ramirez'
 
 import pyglet
 import random
@@ -292,11 +292,86 @@ class Game(object):
             BallDeflector(initial_x = self.width - wall_width, #right
                 initial_y = 0,
                 img_file = wall_imgs[0],
-                game = self),
+                game = self)
         ]
         self.bricks = [
-        
-        ]  # Not used in this initial version
+            # BallDeflector(initial_x = 750, #right
+            #     initial_y = 400,
+            #     img_file = wall_imgs[2],
+            #     game = self)
+        ]
+        brick_start_x = 750
+        brick_start_y = 400
+        brick_count = range(0, 12)
+        for n in brick_count:
+            self.bricks.append(
+                BallDeflector(initial_x = brick_start_x,
+                    initial_y = brick_start_y,
+                    img_file = wall_imgs[2],
+                    game = self
+                )
+            )
+            self.bricks.append(
+                BallDeflector(initial_x = brick_start_x - 40,
+                    initial_y = brick_start_y,
+                    img_file = wall_imgs[2],
+                    game = self
+                )
+            )
+            self.bricks.append(
+                BallDeflector(initial_x = brick_start_x - 80,
+                    initial_y = brick_start_y,
+                    img_file = wall_imgs[2],
+                    game = self
+                )
+            )
+            self.bricks.append(
+                BallDeflector(initial_x = brick_start_x - 120,
+                    initial_y = brick_start_y,
+                    img_file = wall_imgs[2],
+                    game = self
+                )
+            )
+            self.bricks.append(
+                BallDeflector(initial_x = brick_start_x - 160,
+                    initial_y = brick_start_y,
+                    img_file = wall_imgs[2],
+                    game = self
+                )
+            )
+            self.bricks.append(
+                BallDeflector(initial_x = brick_start_x - 200,
+                    initial_y = brick_start_y,
+                    img_file = wall_imgs[2],
+                    game = self
+                )
+            )
+                # BallDeflector(initial_x = brick_start_x - 40,
+                #     initial_y = brick_start_y,
+                #     img_file = wall_imgs[2],
+                #     game = self
+                #     ),
+                # BallDeflector(initial_x = brick_start_x - 80,
+                #     initial_y = brick_start_y,
+                #     img_file = wall_imgs[2],
+                #     game = self
+                #     ),
+                # BallDeflector(initial_x = brick_start_x - 120,
+                #     initial_y = brick_start_y,
+                #     img_file = wall_imgs[2],
+                #     game = self
+                #     ),
+                # BallDeflector(initial_x = brick_start_x - 160,
+                #     initial_y = brick_start_y,
+                #     img_file = wall_imgs[2],
+                #     game = self
+                #     ),
+                # BallDeflector(initial_x = brick_start_x - 200,
+                #     initial_y = brick_start_y,
+                #     img_file = wall_imgs[2],
+                #     game = self
+                #     ),
+            brick_start_y -= 40
         self.game_objects = self.walls + self.bricks + self.paddles + self.balls
 
     def update(self,pressed_keys):
