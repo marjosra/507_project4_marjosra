@@ -74,6 +74,23 @@ class BallDeflector(GameObject):
             if (ball.x < 0) or (ball.y < 0):
                 foobar
 
+class Brick(BallDeflector):
+
+    # broken_bricks = 0
+
+    def deflect_ball(self,ball,side_hit):
+
+        super(Brick, self).deflect_ball(ball, side_hit) # https://stackoverflow.com/questions/805066/call-a-parent-classs-method-from-child-class-in-python
+
+        self.game.game_objects.remove(self)
+
+        # broken_bricks += 1
+        #
+        # if broken_bricks % 10 == 0:
+
+
+
+
 class EndLine(BallDeflector):
 
     def deflect_ball(self, ball, side_hit):
@@ -304,75 +321,59 @@ class Game(object):
         brick_start_y = 400
         brick_count = range(0, 12)
         for n in brick_count:
+            # Column 1
             self.bricks.append(
-                BallDeflector(initial_x = brick_start_x,
+                Brick(initial_x = brick_start_x,
                     initial_y = brick_start_y,
                     img_file = wall_imgs[2],
                     game = self
                 )
             )
+            # Column 2
             self.bricks.append(
-                BallDeflector(initial_x = brick_start_x - 40,
+                Brick(initial_x = brick_start_x - 40,
                     initial_y = brick_start_y,
                     img_file = wall_imgs[2],
                     game = self
                 )
             )
+            # Column 3
             self.bricks.append(
-                BallDeflector(initial_x = brick_start_x - 80,
+                Brick(initial_x = brick_start_x - 80,
                     initial_y = brick_start_y,
                     img_file = wall_imgs[2],
                     game = self
                 )
             )
+            # Column 4
             self.bricks.append(
-                BallDeflector(initial_x = brick_start_x - 120,
+                Brick(initial_x = brick_start_x - 120,
                     initial_y = brick_start_y,
                     img_file = wall_imgs[2],
                     game = self
                 )
             )
+            # Column 5
             self.bricks.append(
-                BallDeflector(initial_x = brick_start_x - 160,
+                Brick(initial_x = brick_start_x - 160,
                     initial_y = brick_start_y,
                     img_file = wall_imgs[2],
                     game = self
                 )
             )
+            # Column 6
             self.bricks.append(
-                BallDeflector(initial_x = brick_start_x - 200,
+                Brick(initial_x = brick_start_x - 200,
                     initial_y = brick_start_y,
                     img_file = wall_imgs[2],
                     game = self
                 )
             )
-                # BallDeflector(initial_x = brick_start_x - 40,
-                #     initial_y = brick_start_y,
-                #     img_file = wall_imgs[2],
-                #     game = self
-                #     ),
-                # BallDeflector(initial_x = brick_start_x - 80,
-                #     initial_y = brick_start_y,
-                #     img_file = wall_imgs[2],
-                #     game = self
-                #     ),
-                # BallDeflector(initial_x = brick_start_x - 120,
-                #     initial_y = brick_start_y,
-                #     img_file = wall_imgs[2],
-                #     game = self
-                #     ),
-                # BallDeflector(initial_x = brick_start_x - 160,
-                #     initial_y = brick_start_y,
-                #     img_file = wall_imgs[2],
-                #     game = self
-                #     ),
-                # BallDeflector(initial_x = brick_start_x - 200,
-                #     initial_y = brick_start_y,
-                #     img_file = wall_imgs[2],
-                #     game = self
-                #     ),
             brick_start_y -= 40
+
         self.game_objects = self.walls + self.bricks + self.paddles + self.balls
+
+        # print(list(self.game_objects))
 
     def update(self,pressed_keys):
         '''
