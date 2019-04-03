@@ -266,7 +266,8 @@ class Game(object):
                          initial_x= 20,
                          initial_y = 20,
                          game=self)
-                      ]
+        ]
+
         self.paddles = [
             Paddle(player = 1,
                     up_key=pyglet.window.key.W,
@@ -278,15 +279,6 @@ class Game(object):
                     game=self
             )
         ]
-
-            # Paddle(player = 2,
-            #         up_key=pyglet.window.key.U,
-            #         down_key=pyglet.window.key.J,
-            #         name='Player 2',
-            #         img_file=paddle_imgs[1],
-            #         initial_x = self.width-self.side_paddle_buffer - paddle_width/2,
-            #         initial_y = self.height/2,
-            #         game=self)        ]
 
         self.walls = [
             BallDeflector(initial_x = 0, #bottom
@@ -306,12 +298,8 @@ class Game(object):
                 img_file = wall_imgs[0],
                 game = self)
         ]
-        self.bricks = [
-            # BallDeflector(initial_x = 750, #right
-            #     initial_y = 400,
-            #     img_file = wall_imgs[2],
-            #     game = self)
-        ]
+
+        self.bricks = []
         brick_start_x = 750
         brick_start_y = 400
         brick_count = range(0, 12)
@@ -368,8 +356,6 @@ class Game(object):
 
         self.game_objects = self.walls + self.bricks + self.paddles + self.balls
 
-        # print(list(self.game_objects))
-
     def update(self,pressed_keys):
         '''
         Update the game based on the current state of its game objects and the set of keys currently
@@ -389,7 +375,7 @@ class Game(object):
             game_object.set_initial_position()
 
 
-        self.hit_count = 0
+        # self.hit_count = 0
         debug_print('Game reset')
         self.game_window.redraw()
 
@@ -402,12 +388,14 @@ class Game(object):
             game_object.draw()
 
     def increment_hit_count(self):
-        # this method will be used in an exercise in discussion section
         self.hit_count += 1
+        print(self.hit_count)
         if (self.hit_count % 10) == 0:
-            print(str(self.hit_count) + "bricks broken! Speed up!")
+            print(str(self.hit_count) + " bricks broken! Time to speed up!")
             for ball in self.balls:
-                ball.velocity *= 2
+                ball.velocity += 1
+            for paddle in self.paddles:
+                paddle.velocity *= 3
 
 class GameWindow(pyglet.window.Window):
 
@@ -427,7 +415,7 @@ class GameWindow(pyglet.window.Window):
         # Decide how often we want to update the game, which involves
         # first telling the game object to update itself and all its objects
         # and then rendering the updated game using
-        self.fps = 20 #Number of frames per seconds
+        self.fps = 60 #Number of frames per seconds
 
         #This tells Pyglet to call GameWindow.update() once every fps-th of a second
         pyglet.clock.schedule_interval(self.update, 1.0/self.fps)
