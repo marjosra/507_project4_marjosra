@@ -1,3 +1,7 @@
+# SI 507 W19 - Project 4
+# By: Mark Ramirez
+# 3 April 2019
+
 __author__ = 'Mark Ramirez'
 
 import pyglet
@@ -18,6 +22,8 @@ def sign(num):
         return 1
     else:
         return -1
+
+
 
 class GameObject(pyglet.sprite.Sprite):
 
@@ -74,17 +80,20 @@ class BallDeflector(GameObject):
             if (ball.x < 0) or (ball.y < 0):
                 foobar
 
+
+
 class Brick(BallDeflector):
 
     def deflect_ball(self,ball,side_hit):
 
-        broken_bricks = 0
+        ### Help taken from https://stackoverflow.com/questions/805066/call-a-parent-classs-method-from-child-class-in-python ###
+        super(Brick, self).deflect_ball(ball, side_hit)
 
-        super(Brick, self).deflect_ball(ball, side_hit) # https://stackoverflow.com/questions/805066/call-a-parent-classs-method-from-child-class-in-python
-
+        ### The following was completed with help from GSI Yea-Ree Chang ###
         self.game.game_objects.remove(self)
-
         self.game.increment_hit_count()
+
+
 
 class EndLine(BallDeflector):
 
@@ -99,6 +108,8 @@ class EndLine(BallDeflector):
         else:
             # Shouldn't happen. Must have miscalculated which side was hit, since this is an endline
             raise Exception(side_hit)
+
+
 
 class Ball(GameObject):
 
@@ -198,6 +209,8 @@ class Ball(GameObject):
         # balls don't deflect other balls
         pass
 
+
+
 class Paddle (BallDeflector):
 
     default_velocity = 4.0
@@ -240,6 +253,7 @@ class Paddle (BallDeflector):
         y_dist = ball.y + ball.height - self.y
         pct = y_dist / float(virtual_height)
         return pct
+
 
 
 class Game(object):
@@ -299,6 +313,7 @@ class Game(object):
                 game = self)
         ]
 
+        ### Brick Creation ###
         self.bricks = []
         brick_start_x = 750
         brick_start_y = 400
@@ -374,8 +389,7 @@ class Game(object):
         for game_object in self.game_objects:
             game_object.set_initial_position()
 
-
-        # self.hit_count = 0
+        # self.hit_count = 0 (Commented out to keep brick score in terminal)
         debug_print('Game reset')
         self.game_window.redraw()
 
@@ -387,6 +401,7 @@ class Game(object):
         for game_object in self.game_objects:
             game_object.draw()
 
+    ### Edited to make sure that every 10 bricks the ball increases speed ###
     def increment_hit_count(self):
         self.hit_count += 1
         print(self.hit_count)
@@ -396,6 +411,8 @@ class Game(object):
                 ball.velocity += 1
             for paddle in self.paddles:
                 paddle.velocity *= 3
+
+
 
 class GameWindow(pyglet.window.Window):
 
@@ -412,6 +429,8 @@ class GameWindow(pyglet.window.Window):
                           x=width-75, y=height-25,
                           anchor_x='center', anchor_y='center')
 
+
+        ### UPDATED BELOW TO MAKE SMOOTHER ###
         # Decide how often we want to update the game, which involves
         # first telling the game object to update itself and all its objects
         # and then rendering the updated game using
@@ -474,6 +493,7 @@ class GameWindow(pyglet.window.Window):
         self.score_label.text = 'Score: ' + str(self.game.score[0]) + ' - ' + str(self.game.score[1])
 
 
+
 def debug_print(string):
     '''
     A little convenience function that prints the string if the global debug variable is True,
@@ -483,6 +503,8 @@ def debug_print(string):
     '''
     if debug:
         print(string)
+
+
 
 def main():
     debug_print("Initializing window...")
@@ -497,6 +519,7 @@ def main():
     debug_print("Done initializing window! Initializing app...")
 
     pyglet.app.run()
+
 
 
 if __name__ == "__main__":
