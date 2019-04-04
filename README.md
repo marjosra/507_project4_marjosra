@@ -42,6 +42,16 @@ _**TO RUN THE APPLICATION**_
 2. Type the following in the command prompt/terminal: **python SI507_project4.py**
 3. Once it begins running, you are playing the game!
 
+****************************
+
+_**CONTROLS**_
+
+**To move paddle up:**
+* Hold/Press 'W'
+
+**To move paddle down:**
+* Hold/Press 'S'
+
 **To pause/unpause the Game:**
 * Press 'P'
 
