@@ -36,9 +36,9 @@ Once you have successfully installed all of the necessary modules, you are ready
 
 ****************************
 
-_**TO RUN THE APPLICATION**_
+_**TO RUN 'BRICK ANNIHILATOR'**_
 
-1. cd to the folder in which the files for this Application are stored.
+1. cd to the folder in which the files for this game are stored.
 2. Type the following in the command prompt/terminal: **python SI507_project4.py**
 3. Once it begins running, you are playing the game!
 
